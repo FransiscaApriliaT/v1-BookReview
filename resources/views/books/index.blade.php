@@ -3,71 +3,80 @@
 @section('title', 'Daftar Buku')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Daftar Buku</h1>
+<div class="position-relative overflow-hidden py-5" style="background: linear-gradient(120deg, #e3f0ff 0%, #f8fafc 100%); min-height: 100vh;">
+    <!-- Ornamen dekoratif -->
+    <div class="position-absolute top-0 start-0 w-25 h-25 rounded-circle" style="background:rgba(52,112,255,0.08); filter: blur(40px); z-index:0;"></div>
+    <div class="position-absolute bottom-0 end-0 w-25 h-25 rounded-circle" style="background:rgba(100,181,246,0.10); filter: blur(40px); z-index:0;"></div>
+    <div class="container position-relative" style="z-index:1;">
+        <h1 class="mb-4 fw-bold text-primary text-center" style="letter-spacing:1px;">📚 Daftar Buku</h1>
 
-    {{-- Form Pencarian --}}
-    <form action="{{ route('buku.index') }}" method="GET" class="row g-3 mb-4">
-        <div class="col-auto">
-            <select name="filter" class="form-select">
-                <option value="title" {{ request('filter') == 'title' ? 'selected' : '' }}>Judul</option>
-                <option value="genre" {{ request('filter') == 'genre' ? 'selected' : '' }}>Genre</option>
-                <option value="author" {{ request('filter') == 'author' ? 'selected' : '' }}>Penulis</option>
-            </select>
-        </div>
-        <div class="col-auto">
-            <input type="text" name="search" class="form-control" placeholder="Cari..." value="{{ request('search') }}">
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary">Cari</button>
-        </div>
-        <div class="col-auto">
-            <a href="{{ route('buku.index') }}" class="btn btn-secondary">Reset</a>
-        </div>
-    </form>
+        {{-- Form Pencarian --}}
+        <form action="{{ route('buku.index') }}" method="GET" class="row g-3 mb-4 justify-content-center">
+            <div class="col-auto">
+                <select name="filter" class="form-select rounded-pill shadow-sm">
+                    <option value="title" {{ request('filter') == 'title' ? 'selected' : '' }}>Judul</option>
+                    <option value="genre" {{ request('filter') == 'genre' ? 'selected' : '' }}>Genre</option>
+                    <option value="author" {{ request('filter') == 'author' ? 'selected' : '' }}>Penulis</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <input type="text" name="search" class="form-control rounded-pill shadow-sm" placeholder="Cari..." value="{{ request('search') }}">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary rounded-pill px-4 shadow">Cari</button>
+            </div>
+            <div class="col-auto">
+                <a href="{{ route('buku.index') }}" class="btn btn-secondary rounded-pill px-4 shadow">Reset</a>
+            </div>
+        </form>
 
-    {{-- Tombol Tambah Buku --}}
-    @if(auth()->user() && auth()->user()->role === 'admin')
-        <a href="{{ route('buku.create') }}" class="btn btn-success mb-4">➕ Tambah Buku</a>
-    @endif
+        {{-- Tombol Tambah Buku --}}
+        @if(auth()->user() && auth()->user()->role === 'admin')
+            <div class="text-center mb-4">
+                <a href="{{ route('buku.create') }}" class="btn btn-success rounded-pill px-4 shadow fw-semibold">
+                    ➕ Tambah Buku
+                </a>
+            </div>
+        @endif
 
-    {{-- Tampilan Buku dalam Kartu --}}
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        @foreach ($books as $book)
-            <div class="col">
-                <div class="card h-100 shadow-sm border-0">
-                    @if ($book->image)
-                        <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top" alt="cover buku" style="height: 250px; object-fit: cover;">
-                    @else
-                        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
-                            <span class="text-muted">Tidak ada gambar</span>
+        {{-- Tampilan Buku dalam Kartu --}}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach ($books as $book)
+                <div class="col">
+                    <div class="card h-100 shadow-lg border-0 rounded-4 bg-white/90">
+                        @if ($book->image)
+                            <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top rounded-top-4" alt="cover buku" style="height: 220px; object-fit: cover;">
+                        @else
+                            <div class="bg-light d-flex align-items-center justify-content-center rounded-top-4" style="height: 220px;">
+                                <span class="text-muted">Tidak ada gambar</span>
+                            </div>
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title text-primary fw-bold">{{ $book->title }}</h5>
+                            <p class="card-text mb-1"><strong>Penulis:</strong> {{ $book->author }}</p>
+                            <p class="card-text"><strong>Genre:</strong> <span class="badge bg-info text-dark">{{ $book->genre }}</span></p>
                         </div>
-                    @endif
-                    <div class="card-body">
-                        <h5 class="card-title text-primary">{{ $book->title }}</h5>
-                        <p class="card-text mb-1"><strong>Penulis:</strong> {{ $book->author }}</p>
-                        <p class="card-text"><strong>Genre:</strong> <span class="badge bg-info text-dark">{{ $book->genre }}</span></p>
-                    </div>
-                    <div class="card-footer bg-white border-top-0">
-                        <div class="d-grid gap-2">
-                            <a href="{{ route('buku.show', $book->id) }}" class="btn btn-outline-primary btn-sm w-100">📖 Detail</a>
+                        <div class="card-footer bg-white border-top-0 rounded-bottom-4">
+                            <div class="d-grid gap-2">
+                                <a href="{{ route('buku.show', $book->id) }}" class="btn btn-outline-primary btn-sm w-100 rounded-pill">📖 Detail</a>
 
-                            @if(auth()->user() && auth()->user()->role === 'admin')
-                                <a href="{{ route('buku.edit', $book->id) }}" class="btn btn-outline-warning btn-sm w-100">✏️ Edit</a>
+                                @if(auth()->user() && auth()->user()->role === 'admin')
+                                    <a href="{{ route('buku.edit', $book->id) }}" class="btn btn-outline-warning btn-sm w-100 rounded-pill">✏️ Edit</a>
 
-                                <form action="{{ route('buku.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus buku ini?')" class="w-100">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100">🗑️ Hapus</button>
-                                </form>
-                            @endif
+                                    <form action="{{ route('buku.destroy', $book->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus buku ini?')" class="w-100">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 rounded-pill">🗑️ Hapus</button>
+                                    </form>
+                                @endif
 
-                            <a href="{{ route('reviews.create', $book->id) }}" class="btn btn-outline-success btn-sm w-100">⭐ Tambah Review</a>
+                                <a href="{{ route('reviews.create', $book->id) }}" class="btn btn-outline-success btn-sm w-100 rounded-pill">⭐ Tambah Review</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 </div>
 @endsection

@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    
+    <a href="{{ url()->previous() }}" class="btn btn-primary rounded-pill px-4 py-2 mb-4 d-inline-flex align-items-center gap-2 shadow" style="margin-top: 1rem;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+        Kembali
+    </a>
     <h1>Edit Buku</h1>
     <form action="{{ route('buku.update', $book->id) }}" method="POST" enctype="multipart/form-data">
         @csrf

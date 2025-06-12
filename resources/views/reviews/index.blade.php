@@ -9,13 +9,14 @@
 </head>
 
 <body class="bg-gradient-to-br from-blue-100 via-pink-50 to-purple-100 min-h-screen">
-    <div class="mb-6">
-        <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-semibold shadow hover:from-blue-500 hover:to-purple-500 transition">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
-            Kembali
-        </a>
-    </div>
+    
     <div class="max-w-4xl mx-auto mt-12 p-8 bg-white/90 rounded-3xl shadow-2xl border border-blue-200">
+        <div class="mb-6">
+            <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-xl font-semibold shadow hover:from-blue-500 hover:to-purple-500 transition">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
+                Kembali
+            </a>
+        </div>
         <h1 class="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-pink-500 to-purple-600 drop-shadow-lg">
             📚 Book Reviews
         </h1>
