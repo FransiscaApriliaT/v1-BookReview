@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h1>Tambah Buku</h1>
-    <form action="{{ route('buku.store') }}" method="POST">
+    <form action="{{ route('buku.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label>Judul Buku</label>
@@ -26,10 +26,6 @@
             <input type="file" name="image" class="form-control">
         </div>
         <div class="mb-3">
-            <label>Rating (1–10)</label>
-            <input type="number" name="rating" class="form-control" value="{{ old('rating', $review->rating ?? '') }}">
-            @error('rating') <div class="text-danger">{{ $message }}</div> @enderror
-        </div>
 
         <button type="submit" class="btn btn-success">Save</button>
     </form>

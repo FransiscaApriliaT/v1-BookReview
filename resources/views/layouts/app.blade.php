@@ -67,6 +67,9 @@
                             <button type="submit" class="btn btn-danger fw-semibold px-3">Logout</button>
                         </form>
                     </li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light fw-semibold px-3" href="{{ route('profile.show') }}">Profil Saya</a>
+                    </li>
                 @else
                     <li class="nav-item">
                         <a class="btn btn-outline-light px-3" href="{{ route('login') }}">Login</a>

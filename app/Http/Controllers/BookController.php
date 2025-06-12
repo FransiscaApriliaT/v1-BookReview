@@ -13,9 +13,28 @@ class BookController extends Controller
         $this->middleware('auth'); // Pastikan hanya user yang login bisa CRUD
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
+        $query = Book::query();
+
+        // Filter pencarian
+        if ($request->filled('search')) {
+            $filter = $request->input('filter', 'title');
+            $search = $request->input('search');
+
+            if ($filter === 'title') {
+                $query->where('title', 'like', "%$search%");
+            } elseif ($filter === 'rating') {
+                $query->where('rating', 'like', "%$search%");
+            } elseif ($filter === 'genre') {
+                $query->where('genre', 'like', "%$search%");
+            } elseif ($filter === 'author') {
+                $query->where('author', 'like', "%$search%");
+            }
+        }
+
+        $books = $query->get();
+
         return view('books.index', compact('books'));
     }
 
@@ -34,12 +53,14 @@ class BookController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        
         $validated = $request->only(['title', 'author', 'description', 'genre']);
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('book_images', 'public');
-            $validated['image'] = $imagePath;
+            $validated['image'] = $imagePath; // hasilnya: book_images/namafile.jpg
         }
+
 
         Book::create($validated);
 

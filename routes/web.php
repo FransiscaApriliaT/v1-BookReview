@@ -29,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard', compact('reviews')); // Kirim data ke view
     })->name('dashboard');
 
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+    
     Route::get('/buku', [BookController::class, 'index'])->name('buku.index');
 
     Route::resource('/buku', BookController::class);

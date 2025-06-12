@@ -20,7 +20,6 @@
         @foreach($book->reviews as $review)
             <div class="border p-3 rounded mb-4">
                 <h4>{{ $review->title }}</h4>
-                <p><strong>{{ $review->user->name }}</strong> memberikan rating {{ $review->rating }}/5</p>
                 <p>{{ $review->content }}</p>
 
                 {{-- Komentar untuk review ini --}}
