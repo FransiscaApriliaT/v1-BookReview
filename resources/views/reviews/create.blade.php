@@ -9,7 +9,7 @@
 <body>
     
     <div class="container mt-5">
-        <a href="{{ url()->previous() }}" class="btn btn-primary rounded-pill px-4 py-2 mb-3 d-inline-flex align-items-center gap-2 shadow">
+        <a href="{{route('reviews.index')}}" class="btn btn-primary rounded-pill px-4 py-2 mb-3 d-inline-flex align-items-center gap-2 shadow">
             <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"/></svg>
             Kembali
         </a>

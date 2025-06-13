@@ -45,7 +45,9 @@
                 <div class="col">
                     <div class="card h-100 shadow-lg border-0 rounded-4 bg-white/90">
                         @if ($book->image)
-                            <img src="{{ asset('storage/' . $book->image) }}" class="card-img-top rounded-top-4" alt="cover buku" style="height: 220px; object-fit: cover;">
+                            <div class="d-flex align-items-center justify-content-center bg-white rounded-top-4" style="height:220px;overflow:hidden;">
+                                <img src="{{ asset($book->image) }}" class="mw-100 mh-100" alt="cover buku" style="max-height: 200px; object-fit: contain;">
+                            </div>
                         @else
                             <div class="bg-light d-flex align-items-center justify-content-center rounded-top-4" style="height: 220px;">
                                 <span class="text-muted">Tidak ada gambar</span>

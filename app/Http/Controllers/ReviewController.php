@@ -40,9 +40,20 @@ class ReviewController extends Controller
         return redirect()->route('reviews.create')->with('success', 'Review berhasil dibuat!');
     }
     public function index()
-{
-    $reviews = Review::with('book', 'user')->latest()->get();
-    return view('reviews.index', compact('reviews'));
-}
+    {
+        $reviews = Review::with('book', 'user')->latest()->get();
+        return view('reviews.index', compact('reviews'));
+    }
+
+    public function destroy(Review $review)
+    {
+        // Hapus semua komentar terkait (jika belum cascade di migration)
+        // $review->comments()->delete();
+
+        // Hapus review (jika migration sudah cascade, komentar akan ikut terhapus)
+        $review->delete();
+
+        return redirect()->route('reviews.index')->with('success', 'Review dan semua komentar berhasil dihapus!');
+    }
 
 }

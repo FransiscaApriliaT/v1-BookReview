@@ -35,12 +35,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/buku', BookController::class);
     Route::post('/buku/{id}/review', [ReviewController::class, 'store'])->name('review.store');
-    Route::delete('/review/{review}', [ReviewController::class, 'destroy'])->name('review.destroy');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
     Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::post('/reviews/{review}/comments', [CommentController::class, 'store'])->name('review.comments.store');
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::get('/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
     Route::get('/reviews/{review}/comments', [CommentController::class, 'index'])->name('review.comments.index');
 

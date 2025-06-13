@@ -35,7 +35,7 @@
         <div class="mb-3">
             <label>Gambar Saat Ini</label><br>
             @if ($book->image)
-                <img src="{{ asset('storage/' . $book->image) }}" alt="Cover Buku" width="120" class="img-thumbnail mb-2">
+                <img src="{{ asset($book->image) }}" alt="Cover Buku" width="120" class="img-thumbnail mb-2">
             @else
                 <p class="text-muted">Belum ada gambar</p>
             @endif
@@ -45,12 +45,6 @@
             <label>Ganti Gambar</label>
             <input type="file" name="image" class="form-control">
             <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar</small>
-        </div>
-
-         <div class="mb-3">
-            <label>Rating (1–10)</label>
-            <input type="number" name="rating" class="form-control" value="{{ old('rating', $review->rating ?? '') }}">
-            @error('rating') <div class="text-danger">{{ $message }}</div> @enderror
         </div>
 
         <button type="submit" class="btn btn-success">Update</button>

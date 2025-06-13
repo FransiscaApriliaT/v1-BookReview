@@ -23,7 +23,19 @@
 
         @foreach ($reviews as $review)
             <div class="mb-12 p-7 border border-blue-100 rounded-2xl bg-gradient-to-br from-white via-blue-50 to-pink-50 shadow-lg">
+                <form action="{{ route('reviews.destroy', $review->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus review ini beserta semua komentarnya?')" class="inline-flex items-center mb-4">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl font-semibold shadow hover:from-pink-500 hover:to-red-500 transition text-sm">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        Hapus Review
+                    </button>
+                </form>
                 <div class="flex items-center mb-2">
+
                     <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-pink-400 flex items-center justify-center text-white font-bold text-xl shadow">
                         {{ strtoupper(substr($review->user->name ?? 'U', 0, 1)) }}
                     </div>
@@ -32,6 +44,10 @@
                         <span class="text-xs text-gray-400 ml-2">{{ $review->created_at->diffForHumans() }}</span>
                     </div>
                 </div>
+                <p class="text-base text-gray-500 mb-1">
+                    <span class="font-semibold text-indigo-600">Buku:</span>
+                    {{ $review->book->title ?? '-' }}
+                </p>
                 <p class="text-xl text-gray-900 font-bold mt-2 mb-1">{{ $review->title ?? 'No Title' }}</p>
                 <div class="flex items-center mb-2">
                     @if(isset($review->rating))

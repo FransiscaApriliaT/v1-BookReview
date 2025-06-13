@@ -53,15 +53,18 @@ class BookController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        
+        // Ambil data buku kecuali gambar
         $validated = $request->only(['title', 'author', 'description', 'genre']);
 
+        // Proses upload gambar jika ada
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('book_images', 'public');
-            $validated['image'] = $imagePath; // hasilnya: book_images/namafile.jpg
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('cover'), $filename);
+            $validated['image'] = 'cover/' . $filename;
         }
 
-
+        // Simpan buku beserta path gambar (jika ada)
         Book::create($validated);
 
         return redirect()->route('buku.index')->with('success', 'Buku berhasil ditambahkan');

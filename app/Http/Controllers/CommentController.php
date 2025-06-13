@@ -36,4 +36,12 @@ class CommentController extends Controller
         return redirect()->route('review.comments.index', $reviewId)
             ->with('success', 'Comment added successfully.');
     }
+
+    public function destroy(\App\Models\Comment $comment)
+    {
+        $reviewId = $comment->review_id;
+        $comment->delete();
+        return redirect()->route('review.comments.index', $reviewId)
+            ->with('success', 'Komentar berhasil dihapus!');
+    }
 }
